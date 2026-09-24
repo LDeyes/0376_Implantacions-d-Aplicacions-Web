@@ -1,0 +1,41 @@
+services:
+
+  web:
+    image: php:8.2-apache
+    container_name: lamp_web
+    ports:
+      - "8080:80"
+    volumes:
+      - ./:/var/www/html
+    depends_on:
+      - db
+    command: >
+      bash -c "docker-php-ext-install mysqli &&
+      apache2-foreground"
+
+  db:
+    image: mysql:8.0
+    container_name: lamp_db
+    restart: always
+    environment:
+      MYSQL_DATABASE: exemple
+      MYSQL_USER: usuari
+      MYSQL_PASSWORD: contrasenya
+      MYSQL_ROOT_PASSWORD: root
+    volumes:
+      - mysql_data:/var/lib/mysql
+
+  phpmyadmin:
+    image: phpmyadmin:latest
+    container_name: lamp_phpmyadmin
+    restart: always
+    ports:
+      - "8081:80"
+    environment:
+      PMA_HOST: db
+      MYSQL_ROOT_PASSWORD: root
+    depends_on:
+      - db
+
+volumes:
+  mysql_data:
