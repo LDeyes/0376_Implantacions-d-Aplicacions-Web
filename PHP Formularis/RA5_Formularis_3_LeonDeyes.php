@@ -8,6 +8,7 @@
 <body>
     <h1>Dades de Contacte</h1>
     <form method="POST" action="RA5_Formularis_3_LeonDeyes.php">
+    <!-- Crea un formulari amb els camps omplibles (NOM, CORREU i MISSATGE) -->
         Nom: <br>
         <input type="text" name="nom"> <br><br>
         Correu Electrònic: <br>
@@ -25,7 +26,8 @@
         $nom = $_POST["nom"];
         $correu = $_POST["correu"];
         $missatge = $_POST["missatge"];
-
+        
+// Valida que tots els camps s'han omplert, si no hi ha cap error les mostra a la pantalla 
         if($nom == "" or $correu == "" or $missatge == "") {
             echo "Error: Has d'omplir tots els camps.";
         } else {
